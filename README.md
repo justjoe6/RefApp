@@ -19,6 +19,28 @@ Here in the swift app file JustReffinApp.swift I've created a tab view such that
             }
 ```
 
+# Game.swift
+
+The app uses a game object of which the use will be explained later on, but it is defined in this file as followed:
+
+```
+struct Game: Codable {
+    let homeTeam: String
+    let awayTeam: String
+    let homeScore: Int
+    let awayScore: Int
+    let date:Date
+
+    init(homeTeam: String, awayTeam: String, homeScore:Int, awayScore:Int) {
+        self.homeTeam = homeTeam
+        self.awayTeam = awayTeam
+        self.homeScore = homeScore
+        self.awayScore = awayScore
+        self.date = Date()
+    }
+}
+```
+
 # ContentView.swift
 <img width="345" alt="Screenshot 2024-01-03 at 7 29 17 PM" src="https://github.com/justjoe6/RefApp/assets/68125991/673d7a11-0ecd-4bff-be81-c1729a9444e7">
 
@@ -60,7 +82,7 @@ Underneath the color picker the app also provides a means of inputing the name o
             }.padding(.trailing, 8.0)
 ```
 
-One of the final features that this view contains is the submit button which is used in order to store a game and then display that game and previously submitted games on the GameLogsView file. Through the use of UserDefaults the app is able to store prevous games even after the app is closed. It first decodes the JSON encoded text stored in UserDefaults under the key "Game" then we append the newly submitted game to the now decoded list. Then it encodes the list using JSON again and stores it in UserDefaults.
+One of the final features that this view contains is the submit button which is used in order to store a game and then display that game and previously submitted games on the GameLogsView file. Through the use of UserDefaults the app is able to store prevous games even after the app is closed. It first creates a game object for the curernt game then decodes the JSON encoded text stored in UserDefaults under the key "Game" and then we append the newly submitted game to the now decoded list of game objects. Then it encodes the list using JSON again and stores it in UserDefaults.
 
 ```
               Button("Submit") {
