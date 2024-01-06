@@ -107,6 +107,80 @@ Finally all variables are reset after the submit button is pressed
                         awayColor = "Black"
 ```
 
+# GameLogsView.swift
+<img width="345" alt="Screenshot 2024-01-03 at 7 30 50 PM" src="https://github.com/justjoe6/RefApp/assets/68125991/6f8615b3-164b-481d-81ca-7209bf494211">
+
+The following code decodes the games saved in UserDefaults from JSON when the view is loaded in so that they can be accessed and later displayed.
+
+```
+        .onAppear{
+            
+            if let savedData = UserDefaults.standard.data(forKey: "Game")
+            {
+                do {
+                    let decoder = JSONDecoder()
+                    
+                    savedGames = try decoder.decode([Game].self, from: savedData)
+                }
+                catch
+                {
+                    print("Unable to decode")
+                }
+            }
+        }
+```
+
+
+
+```
+            List(savedGames, id: \.date) { game in
+                HStack {
+                    Spacer()
+                    VStack {
+                        Text("\(game.homeTeam)  \(game.homeScore) - \(game.awayScore)  \(game.awayTeam)")
+                        Text("\(Calendar.current.component(.month, from: game.date))/\(Calendar.current.component(.day, from: game.date))")
+                            .font(.system(size: 10))
+                    }
+                    Spacer()
+                    Text("Delete")
+                        .foregroundStyle(.blue)
+                        .onTapGesture {
+                            if let index = savedGames.firstIndex(where: { $0.date == game.date }) {
+                                savedGames.remove(at: index)
+                                do {
+                                    let encoder = JSONEncoder()
+                                    let data = try encoder.encode(savedGames)
+                                    UserDefaults.standard.set(data, forKey: "Game")
+                                } catch {
+                                    print("Can't Encode")
+                                }
+                            }
+                        }
+                        .simultaneousGesture(TapGesture())
+                }
+            }
+```
+
+A clear button is provided in the case that the user would like to erase all the games recorded. 
+
+```
+            Button("Clear"){
+                do{
+                    let encoder = JSONEncoder()
+                    let temp:[Game]=[]
+                    let data =  try encoder.encode(temp)
+                    UserDefaults.standard.set(data, forKey: "Game")
+                    savedGames=[]
+
+                }
+                catch
+                {
+                    print("Can't Encode")
+                }
+                
+            }.padding(.bottom,40)
+```
+
 # TimerView.swift
 <img width="345" alt="Screenshot 2024-01-03 at 7 29 42 PM" src="https://github.com/justjoe6/RefApp/assets/68125991/79738252-8da8-4184-8381-c4457aacfd75">
 
