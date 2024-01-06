@@ -1,6 +1,6 @@
 
-
-'''
+Follow is code
+```
             TabView {
                 ContentView()
                     .tabItem {
@@ -15,4 +15,6 @@
                         Label("Game Logs", systemImage:"list.clipboard")
                     }
             }
-'''
+```
+
+
