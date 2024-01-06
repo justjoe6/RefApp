@@ -92,8 +92,18 @@ One of the final features that this view contains is the submit button which is 
                         {
                             print("Can't Encode")
                         }
-            }
+            
                         
 ```
 
+Finally all variables are reset after the submit button is pressed
+
+```
+                        team1=""
+                        team2=""
+                        homeScore=0
+                        awayScore=0
+                        homeColor = "Black"
+                        awayColor = "Black"
+```
 
