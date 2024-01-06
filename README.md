@@ -21,6 +21,7 @@ Here in the swift app file JustReffinApp.swift I've created a tab view such that
 
 # ContentView.swift
 <img width="345" alt="Screenshot 2024-01-03 at 7 29 17 PM" src="https://github.com/justjoe6/RefApp/assets/68125991/673d7a11-0ecd-4bff-be81-c1729a9444e7">
+
 The ContentView file allows for keeping track of a current game and one of the features it provides is it allows the user to select the color a team is wearing and display that color below home and away in the form of a circle. It does this through a picker which is located just below the circle and below is the code of how this is accomplished using the home team code as an example. 
 
 ```
