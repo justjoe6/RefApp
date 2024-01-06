@@ -107,3 +107,37 @@ Finally all variables are reset after the submit button is pressed
                         awayColor = "Black"
 ```
 
+# TimerView.swift
+<img width="345" alt="Screenshot 2024-01-03 at 7 29 42 PM" src="https://github.com/justjoe6/RefApp/assets/68125991/79738252-8da8-4184-8381-c4457aacfd75">
+
+This code allows the timer to run by incrementing the timer by 0.1 seconds while the timer is running and displaying it.
+
+```
+            Text("\(String(format:"%.1f",self.time))s").font(.system(size:96))
+                .bold()
+                .onReceive(self.timer){ t in if timerRunning{
+                    time+=0.1
+                }
+```
+
+The following code is what starts the timer, once the start button is pressed it triggers the timer to publish/run ever 0.1 seconds. Since initially the timer isn't running only the start button and reset button are displayed. But, once the start button is pressed it sets the timerRunning variable to true
+thus causing the start button to disappear and the stop button to appear which when pressed causes the timer to stop and the start button to reappear.
+
+```
+                if(!timerRunning)
+                {
+                    Button("Start") {
+                        timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+                        timerRunning=true
+                    }
+                }
+                else{
+                    Button("Stop") {
+                        self.timer.upstream.connect().cancel()
+                        timerRunning=false
+                    }
+                }
+                Button("Reset") {
+                    time=0.0
+                }
+```
