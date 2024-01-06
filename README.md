@@ -130,7 +130,7 @@ The following code decodes the games saved in UserDefaults from JSON when the vi
         }
 ```
 
-
+The following code goes through the list of games displaying each one's result along with the date the game took place. It also provides a delete button for each game that way games can be deleted individually if needed.
 
 ```
             List(savedGames, id: \.date) { game in
