@@ -44,13 +44,19 @@ struct Game: Codable {
 # ContentView.swift
 <img width="345" alt="Screenshot 2024-01-03 at 7 29 17 PM" src="https://github.com/justjoe6/RefApp/assets/68125991/673d7a11-0ecd-4bff-be81-c1729a9444e7">
 
-The ContentView file allows for keeping track of a current game and one of the features it provides is it allows the user to select the color a team is wearing and display that color below home and away in the form of a circle. It does this through a picker which is located just below the circle and below is the code of how this is accomplished using the home team code as an example. 
+The ContentView file allows for keeping track of a current game and one of the features it provides is it allows the user to select the color a team is wearing and display that color below home and away in the form of a circle. It does this through a picker which is located just below the circle and there is also a conditional such that if the phone is in dark mode a gray outline is created around the circle so that it is still visible. Below is the code of how this is accomplished using the home team code as an example. 
 
 ```
             Text("Home")
             if(homeColor == "Black")
             {
-                        Circle().foregroundColor(.black)
+                            if(phoneMode == .light){
+                                Circle().foregroundColor(.black)
+                            }
+                            else{
+                                Circle().foregroundColor(.black)
+                                    .overlay(Circle().stroke(Color.gray,lineWidth:4))
+                            }
             }
             else if(homeColor == "Red")
             {
@@ -72,11 +78,11 @@ The ContentView file allows for keeping track of a current game and one of the f
             }
 ```
 
-Underneath the color picker the app also provides a means of inputing the name of the home and away teams and below that there is a stepper(a minus and plus button) which allows the user to increment and decrement the score of both the home and away teams.
+Underneath the color picker the app also provides a means of inputing the name of the home and away teams with a conditional that changes the black border around the text box to white if the phone is in dark mode and below that there is a stepper(a minus and plus button) which allows the user to increment and decrement the score of both the home and away teams.
 
 ```
             TextField("Name", text: $team1)
-            .border(Color.black)
+                        .border(phoneMode == .dark ? .white: .black)
             Stepper(value: $homeScore, in: 0...99) {
                             
             }.padding(.trailing, 8.0)
