@@ -16,11 +16,15 @@ struct ContentView: View {
     @State var homeScore = 0
     @State var awayScore = 0
     
+    @Environment(\.colorScheme) var phoneMode
+    
     
     var body: some View {
         
         ZStack{
-            Color(.white).ignoresSafeArea()
+            if(phoneMode == .dark){
+                Color(red: 0.1, green: 0.1, blue: 0.1).ignoresSafeArea()
+            }
             VStack{
                 Spacer()
                 Spacer()
@@ -30,7 +34,13 @@ struct ContentView: View {
                         Text("Home")
                         if(homeColor == "Black")
                         {
-                            Circle().foregroundColor(.black)
+                            if(phoneMode == .light){
+                                Circle().foregroundColor(.black)
+                            }
+                            else{
+                                Circle().foregroundColor(.black)
+                                    .overlay(Circle().stroke(Color.gray,lineWidth:4))
+                            }
                         }
                         else if(homeColor == "Red")
                         {
@@ -51,7 +61,7 @@ struct ContentView: View {
                             Text("Green").tag("Green")
                         }
                         TextField("Name", text: $team1)
-                            .border(Color.black)
+                            .border(phoneMode == .dark ? .white: .black)
                         Stepper(value: $homeScore, in: 0...99) {
                             
                         }.padding(.trailing, 8.0)
@@ -65,7 +75,13 @@ struct ContentView: View {
                         Text("Away")
                         if(awayColor == "Black")
                         {
-                            Circle().foregroundColor(.black)
+                            if(phoneMode == .light){
+                                Circle().foregroundColor(.black)
+                            }
+                            else{
+                                Circle().foregroundColor(.black)
+                                    .overlay(Circle().stroke(Color.gray,lineWidth:4))
+                            }
                         }
                         else if(awayColor == "Red")
                         {
@@ -86,7 +102,7 @@ struct ContentView: View {
                             Text("Green").tag("Green")
                         }
                         TextField("Name", text: $team2)
-                            .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                            .border(phoneMode == .dark ? .white: .black)
                         Stepper(value: $awayScore, in: 0...99) {
                             
                         }.padding(.trailing, 8.0)
